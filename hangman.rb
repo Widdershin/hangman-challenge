@@ -52,4 +52,9 @@ loop do
     puts "You won! Congratulations. You get to live."
     break
   end
+
+  if lives_remaining <= 0
+    puts "Sorry, you've been hung. It's a bit brutal, but that's life, right?"
+    break
+  end
 end
