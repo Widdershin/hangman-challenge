@@ -11,9 +11,17 @@
 #     Add the guess to the list of successful guesses
 #   else
 #     lose a life
+#
+#   If the user has guessed all the letters in the word to guess
+#     They win the game!
+#
+#   If the user has no lives left
+#     They lose the game
 
 
 word_to_guess = File.readlines('words.txt').map { |word| word.strip }.sample
+word_to_guess = "test"
+
 letters_successfully_guessed = []
 lives_remaining = 7
 
@@ -38,5 +46,10 @@ loop do
     letters_successfully_guessed << letter_guessed
   else
     lives_remaining -= 1
+  end
+
+  if (word_to_guess.chars - letters_successfully_guessed).none?
+    puts "You won! Congratulations. You get to live."
+    break
   end
 end
