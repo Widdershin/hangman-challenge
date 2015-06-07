@@ -1,6 +1,15 @@
 art = [
   <<-ART ,
 /----
+|   
+|
+|
+|
+|
+--------
+  ART
+  <<-ART ,
+/----
 |   |
 |
 |
@@ -53,10 +62,10 @@ art = [
 |
 --------
   ART
-  <<-ART ,
+   <<-ART ,
 /----
-|   |
-|   O
+|   |   - Thanks for nothing ¬¬
+|   O    
 |  /|\\
 |  / \\
 |
@@ -64,10 +73,14 @@ art = [
   ART
 ]
 
+puts `clear`
+
 word_to_guess = File.readlines('words.txt').map { |word| word.strip }.sample
-puts word_to_guess
+#puts word_to_guess
 
 correct_guesses = []
+
+incorrect_guesses = []
 
 counter = 0
 
@@ -77,6 +90,11 @@ loop {
 		(correct_guesses.include? letter) ? letter : "_"
 	end.join(" ")
 
+	#Lives
+	puts "You have used #{counter} of your 7 lives"
+	puts art[counter]	
+
+	#Input request
 	puts "Pick a letter!"
 	
 	puts word_status_display
@@ -85,13 +103,23 @@ loop {
 
 	puts `clear`
 	
-	(word_to_guess.include? letter_guess) ? (puts "OMG yay!"; correct_guesses << letter_guess) : (counter += 1; puts "Bummer :(")
-	
-	puts "You have used #{counter} of your 7 lives"
-	puts art[counter]
+	#Conditions for scoring or incorrect input	
+	if letter_guess =~ /^[0-9]/ || /[[:punct:]]/  
+		puts "#{letter_guess} is not a letter!"
+	elsif letter_guess.empty?  
+		puts "Letter please!"
+	elsif letter_guess.length > 1  
+		puts "Oops! that's more than one letter"
+	elsif (correct_guesses.include? letter_guess) || (incorrect_guesses.include? letter_guess)  
+		puts "Don't repeat letters!"
+	elsif word_to_guess.include? letter_guess  
+		puts "OMG yay!"; correct_guesses << letter_guess
+	else counter += 1; puts "Bummer :("; incorrect_guesses << letter_guess
+	end
 
-	break puts "HA HA you're dead" if (counter == 7)
-	break puts "Woohoo! You have successfully avoided a public execution" if (correct_guesses.length == word_to_guess.chars.uniq.length) 
+	#Winning or losing statements
+	break puts "#{art[counter]}\nHA HA you're dead! The word was #{word_to_guess}" if (counter == 7)
+	break puts "#{art[counter]}\nWoohoo! You have successfully avoided a public execution" if (correct_guesses.length == word_to_guess.chars.uniq.length) 
 
 }
 
