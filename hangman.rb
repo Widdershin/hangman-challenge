@@ -1,77 +1,4 @@
-art = [
-  <<-ART ,
-/----
-|   
-|
-|
-|
-|
---------
-  ART
-  <<-ART ,
-/----
-|   |
-|
-|
-|
-|
---------
-  ART
-  <<-ART ,
-/----
-|   |
-|   O
-|
-|
-|
---------
-  ART
-  <<-ART ,
-/----
-|   |
-|   O
-|   |
-|
-|
---------
-  ART
-  <<-ART ,
-/----
-|   |
-|   O
-|  /|
-|
-|
---------
-  ART
-  <<-ART ,
-/----
-|   |
-|   O
-|  /|\\
-|
-|
---------
-  ART
-  <<-ART ,
-/----
-|   |
-|   O
-|  /|\\
-|  /
-|
---------
-  ART
-   <<-ART ,
-/----
-|   |   - Thanks for nothing ¬¬
-|   O    
-|  /|\\
-|  / \\
-|
---------
-  ART
-]
+require_relative 'art'
 
 puts `clear`
 
@@ -92,7 +19,7 @@ loop {
 
 	#Lives
 	puts "You have used #{counter} of your 7 lives"
-	puts art[counter]	
+	puts ART[counter]
 
 	#Input request
 	puts "Pick a letter!"
@@ -118,8 +45,8 @@ loop {
 	end
 
 	#Winning or losing statements
-	break puts "#{art[counter]}\nHA HA you're dead! The word was #{word_to_guess}" if (counter == 7)
-	break puts "#{art[counter]}\nWoohoo! You have successfully avoided a public execution" if (correct_guesses.length == word_to_guess.chars.uniq.length) 
+	break puts "#{ART[counter]}\nHA HA you're dead! The word was #{word_to_guess}" if (counter == 7)
+	break puts "#{ART[counter]}\nWoohoo! You have successfully avoided a public execution" if (correct_guesses.length == word_to_guess.chars.uniq.length)
 
 }
 
